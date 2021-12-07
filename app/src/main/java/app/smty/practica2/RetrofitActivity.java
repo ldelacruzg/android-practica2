@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.smty.practica2.Models.GorestResponseGeneral;
 import app.smty.practica2.Services.GorestService;
@@ -22,8 +23,10 @@ public class RetrofitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrofit);
 
+        // init components UI
         textViewUsers = findViewById(R.id.textViewUsers);
 
+        // Retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://gorest.co.in/public/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -43,7 +46,7 @@ public class RetrofitActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GorestResponseGeneral> call, Throwable t) {
-
+                Toast.makeText(RetrofitActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
